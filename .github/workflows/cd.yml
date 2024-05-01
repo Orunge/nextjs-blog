@@ -21,7 +21,10 @@ jobs:
 
       - name: Build Next.js application
         run: npm run build  # Adjust if you use a different build command
-
+        
+      - name: Grant execute permissions to deploy.sh
+        run: chmod +x deploy.sh
+        
       - name: Build and exclude node_modules (deploy.sh script)
         run: ./deploy.sh
 
@@ -33,6 +36,5 @@ jobs:
           password: ${{ secrets.DEPLOY_PASSWORD }}  # Consider using SSH keys for better security  # Typical SSH port (adjust if needed)
           port: 22
           remote_Path: nextjs/nextjs-blog  # Adjust for your server directory
-          localPath: |  # Multi-line string for commands
-            rsync -avz --exclude="node_modules" ./ out/
+       
         # Exclude unnecessary files
