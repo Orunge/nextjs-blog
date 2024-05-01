@@ -1,0 +1,57 @@
+name: cd.yml
+
+on:
+  push:
+    branches: [ main ]  # Change to your production branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies (adjust if needed)
+        run: sudo apt update && sudo apt install openssh-client -y  # Needed for PAT-based SSH
+
+      - name: Configure SSH using PAT
+        uses: shivfu/ssh-add@v1
+        with:
+          private_key: ${{ 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 }}  # Replace with your PAT secret name
+          host_key_checking: no  # **WARNING:** Consider security implications before disabling host key checking
+
+      - name: Connect to Ubuntu server
+        run: ssh bteg@172.30.10.249  # Replace with your server details
+
+      - name: Update dependencies (adjust if needed)
+        run: ssh bteg@172.30.10.249 'sudo apt update && sudo apt upgrade -y'  # Update on server
+
+      - name: Install dependencies (if needed on server)
+        run: ssh bteg@172.30.10.249 'npm install || yarn install'  # Run npm install or yarn install based on your setup
+
+      - name: Build Next.js application (optional, can be built locally)
+        run: ssh ubuntu@your_server_address 'npm run build || yarn build'  # Run build command on server (optional)
+
+      - name: Start or restart your application (adjust based on your setup)
+        run: ssh bteg@172.30.10.249 'nohup /home/bteg/nextjs/nextjs-blog &'  # Replace with your start command if needed
+
+**Remember to replace:**
+
+* `{{ secrets.PAT }}`: The name of your secret containing the Personal Access Token (PAT)
+* `your_server_address`: Your Ubuntu server's IP address or hostname
+* `/home/bteg/nextjs`: The path to your Next.js application directory on the Ubuntu server (adjust if needed)
+* `/home/bteg/nextjs/server.js`: The path to your Next.js server entry point script (adjust based on your project structure)
+* `nohup /home/bteg/nextjs/server.js &`: The command to start or restart your application (adjust based on your setup)
+
+**Explanation of Key Points:**
+
+* This YAML leverages your PAT for authentication and uses `ssh` commands to interact with your Ubuntu server.
+* The workflow checks if the project directory already exists on the server (`cd /home/bteg/nextjs`). If not, you might need to add a step to clone the repository using `git clone`.
+* The `Build Next.js application` and `Copy application files` steps are marked optional, allowing you to decide whether to build locally or on the server, and whether the files are already present.
+
+**Additional Considerations:**
+
+* **Security:** Disabling host key checking (`host_key_checking: no`) is still a security risk. Consider setting up SSH keys properly on your server for better security.
+* **Customization:** Adapt the deployment commands (`chmod`, `nohup`) and paths based on your specific project structure and server setup.
+* **Error Handling:** You might want to add error handling and logging to your workflow for troubleshooting purposes.
+
+By creating a new YAML file with this content and replacing the placeholders, you'll have a workflow tailored for deploying your Next.js application to your Ubuntu server using GitHub Actions and a PAT.
