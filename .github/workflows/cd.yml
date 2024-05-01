@@ -22,8 +22,8 @@ jobs:
       - name: Build Next.js application
         run: npm run build  # Adjust if you use a different build command
 
-      - name: Deploy to Ubuntu server (replace with your deployment commands)
-        uses: rs/sftp-sync-action@v2.3.1  # Secure SFTP transfer action
+      - name: SFTP Deploy
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
