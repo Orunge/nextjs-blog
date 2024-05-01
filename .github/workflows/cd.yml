@@ -19,15 +19,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Clear cache (optional)
+        run: rm -rf ~/.cache/rsync  # This removes the rsync cache directory
+
       - name: Build Next.js application
-        run: npm run build  # Adjust if you use a different build command
-        
+        run: npm run build
+
       - name: Grant execute permissions to deploy.sh
         run: chmod +x deploy.sh
-        
+
       - name: Build and exclude node_modules (deploy.sh script)
         run: ./deploy.sh
-
+        
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
