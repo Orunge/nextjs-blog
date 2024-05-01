@@ -22,6 +22,9 @@ jobs:
       - name: Build Next.js application
         run: npm run build  # Adjust if you use a different build command
 
+      - name: Build and exclude node_modules (replace with your script path)
+        run: ./deploy.sh
+
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
