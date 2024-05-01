@@ -23,7 +23,7 @@ jobs:
         run: npm run build  # Adjust if you use a different build command
 
       - name: Build and exclude node_modules (replace with your script path)
-        run: ./deploy.sh
+        run: nextjs/nextjs-blog/deploy.sh
 
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
