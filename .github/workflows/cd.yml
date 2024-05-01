@@ -25,10 +25,9 @@ jobs:
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
+          server: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}  # Consider using SSH keys for better security
           port: 22  # Typical SSH port (adjust if needed)
-          remotePath: nextjs/nextjs-blog  # Adjust for your server directory
-          localPath: ./out  # Adjust if you have a different output directory
+          remote_Path: nextjs/nextjs-blog  # Adjust for your server directory
         # Exclude unnecessary files
