@@ -28,6 +28,6 @@ jobs:
           server: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}  # Consider using SSH keys for better security  # Typical SSH port (adjust if needed)
-          port: 80
+          port: 22
           remote_Path: nextjs/nextjs-blog  # Adjust for your server directory
         # Exclude unnecessary files
