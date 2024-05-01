@@ -29,6 +29,6 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}  # Consider using SSH keys for better security
           port: 22  # Typical SSH port (adjust if needed)
-          remotePath: /home/bteg/nextjs/nextjs-blog  # Adjust for your server directory
+          remotePath: nextjs/nextjs-blog  # Adjust for your server directory
           localPath: ./out  # Adjust if you have a different output directory
         # Exclude unnecessary files
