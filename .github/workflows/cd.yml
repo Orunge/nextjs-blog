@@ -30,4 +30,5 @@ jobs:
           password: ${{ secrets.DEPLOY_PASSWORD }}  # Consider using SSH keys for better security  # Typical SSH port (adjust if needed)
           port: 22
           remote_Path: nextjs/nextjs-blog  # Adjust for your server directory
+          ignore: '.git* node_modules' 
         # Exclude unnecessary files
