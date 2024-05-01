@@ -20,4 +20,3 @@ spec:
         command: ["sleep", "123456"]
       nodeSelector:
         beta.kubernetes.io/os: linux
-@dridi-mohamed
