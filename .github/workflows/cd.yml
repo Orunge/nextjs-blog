@@ -21,7 +21,10 @@ jobs:
 
       - name: Build Next.js application
         run: npm run build  # Adjust if you use a different build command
-
+        
+      - name: Grant execute permissions to deploy.sh
+        run: chmod +x deploy.sh
+        
       - name: Build and exclude node_modules (deploy.sh script)
         run: ./deploy.sh
 
