@@ -14,7 +14,7 @@ jobs:
       - name: Set up Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: 16  # Adjust for your project's Node.js version
+          node-version: 18  # Adjust for your project's Node.js version
 
       - name: Install dependencies
         run: npm install
@@ -22,13 +22,17 @@ jobs:
       - name: Build Next.js application
         run: npm run build  # Adjust if you use a different build command
 
+      - name: Build and exclude node_modules (replace with your script path)
+        run: ./deploy.sh
+
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
+          server: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}  # Consider using SSH keys for better security
-          port: 22  # Typical SSH port (adjust if needed)
-          remotePath: /home/bteg/nextjs/nextjs-blog  # Adjust for your server directory
-          localPath: ./out  # Adjust if you have a different output directory
+          password: ${{ secrets.DEPLOY_PASSWORD }}  # Consider using SSH keys for better security  # Typical SSH port (adjust if needed)
+          port: 22
+          remote_Path: nextjs/nextjs-blog  # Adjust for your server directory
+          localPath: |  # Multi-line string for commands
+            rsync -avz --exclude="node_modules" ./ out/
         # Exclude unnecessary files
